@@ -1,13 +1,16 @@
 #[macro_use] extern crate rocket;
+use std::path::{PathBuf, Path};
+use rocket::fs::NamedFile;
 
 #[post("/upload_file")]
 fn upload_file() -> () {
 
 }
 
-#[get("/download_file")]
-fn download_file() -> () {
-
+#[get("/download_file/<file_name>")]
+async fn download_file(file_name: PathBuf) -> Option<NamedFile> {
+    let path = Path::new("bucket/").join(file_name);
+    NamedFile::open(path).await.ok()
 }
 
 #[get("/get_file_names")]
