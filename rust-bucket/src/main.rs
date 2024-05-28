@@ -2,6 +2,7 @@
 use std::path::{PathBuf, Path};
 use rocket::fs::{NamedFile, TempFile};
 use rocket::form::Form;
+use std::fs;
 
 #[derive(FromForm)]
 struct FileUpload<'r> {
@@ -27,8 +28,16 @@ async fn download_file(file_name: PathBuf) -> Option<NamedFile> {
 }
 
 #[get("/get_file_names")]
-fn get_file_names() -> () {
-
+fn get_file_names() -> std::io::Result<String> {
+    let mut file_names: Vec<String> = Vec::new();
+    for path in fs::read_dir("bucket/").unwrap() {
+        match path.unwrap().path().to_str() {
+            Some(file_name) => file_names.push(file_name.to_string()),
+            None => continue,
+        }
+    }
+    let result = format!("{:?}", file_names);
+    Ok(result)
 }
 
 #[delete("/delete_files")]
