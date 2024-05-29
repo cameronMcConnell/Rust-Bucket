@@ -1,0 +1,1 @@
+curl 127.0.0.1:8000/bucket/get_file_names

@@ -9,15 +9,27 @@ struct FileUpload<'r> {
     file: TempFile<'r>,
 }
 
+fn get_extension_from_mime_type(mime_type: &str) -> &str {
+    match mime_type {
+        "text/plain" => "txt",
+        "image/jpeg" => "jpg",
+        "image/png" => "png",
+        "application/pdf" => "pdf",
+        _ => "bin",
+    }
+}
+
 #[post("/upload_file", data = "<form>")]
 async fn upload_file(mut form: Form<FileUpload<'_>>) -> std::io::Result<&'static str> {
     match form.file.name() {
         Some(val) => {
-            let path: PathBuf = Path::new("bucket/").join(val);
+            let content_type = form.file.content_type().unwrap().to_string();
+            let file_name = format!("{}.{}", val, get_extension_from_mime_type(&content_type));
+            let path: PathBuf = Path::new("bucket/").join(file_name);
             form.file.persist_to(&path).await?;
-            Ok("File uploaded successfully.")
+            Ok("File uploaded successfully.\n")
         },
-        None => Ok("File has no name."),
+        None => Ok("File has no name.\n"),
     }
 }
 
@@ -40,9 +52,15 @@ fn get_file_names() -> std::io::Result<String> {
     Ok(result)
 }
 
-#[delete("/delete_files")]
-fn delete_files() -> () {
-
+#[delete("/delete_files?<file_names>")]
+fn delete_files(file_names: String) -> std::io::Result<&'static str> {
+    for file in file_names.split(",") {
+        let path = Path::new("bucket/").join(file);
+        if path.exists() {
+            fs::remove_file(path).unwrap();
+        }
+    }
+    Ok("Files have been deleted.\n")
 }
 
 #[launch]
