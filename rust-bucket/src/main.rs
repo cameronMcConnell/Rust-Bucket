@@ -44,12 +44,11 @@ fn get_file_names() -> std::io::Result<String> {
     let mut file_names: Vec<String> = Vec::new();
     for path in fs::read_dir("bucket/").unwrap() {
         match path.unwrap().path().to_str() {
-            Some(file_name) => file_names.push(file_name.to_string()),
+            Some(file_name) => file_names.push(file_name[7..].to_string()),
             None => continue,
         }
     }
-    let result = format!("{:?}", file_names);
-    Ok(result)
+    Ok(format!("{:?}", file_names))
 }
 
 #[delete("/delete_files?<file_names>")]
