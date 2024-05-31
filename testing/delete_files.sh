@@ -1,1 +1,1 @@
-curl -X DELETE 127.0.0.1:8000/bucket/delete_files?file_names=test1.txt,test2.txt,test3.txt
+curl -X DELETE 127.0.0.1:8000/bucket/delete_files?file_names=test1.txt,test2.txt,test3.txt,sanatize_test_.txt
