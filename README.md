@@ -1,23 +1,23 @@
-## Rust Bucket
+# Rust Bucket
 
 Rust Bucket is a simple file upload and management service built with Rust and Rocket.
 
-### Features
+## Features
 
 - **File Upload**: Upload files to a designated bucket directory.
 - **File Download**: Download files from the bucket.
 - **List Files**: Retrieve a list of file names stored in the bucket.
 - **File Deletion**: Delete files from the bucket.
 
-### Getting Started
+## Getting Started
 
 To run Rust Bucket, follow these steps:
 
-#### Prerequisites
+### Prerequisites
 
 - Docker installed on your system.
 
-#### Instructions
+### Instructions
 
 1. Clone the repository:
 
@@ -43,7 +43,7 @@ To run Rust Bucket, follow these steps:
     docker run -d -p 8000:8000 rust-bucket
     ```
 
-### API Endpoints
+## API Endpoints
 
 - **Upload File**: `POST /bucket/upload_file`
   - Upload a file to the bucket directory.
@@ -54,9 +54,9 @@ To run Rust Bucket, follow these steps:
 - **Delete Files**: `DELETE /bucket/delete_files?file_names=<comma_separated_file_names>`
   - Delete files from the bucket.
 
-### API Usage
+## API Usage
 
-#### Upload File
+### Upload File
 
 ```
 POST /bucket/upload_file
@@ -65,29 +65,29 @@ Content-Type: multipart/form-data
 [file] # File to be uploaded
 ```
 
-#### Download File
+### Download File
 
 ```
 GET /bucket/download_file/<file_name>
 ```
 
-#### List Files
+### List Files
 
 ```
 GET /bucket/get_file_names
 ```
 
-#### Delete Files
+### Delete Files
 
 ```
 DELETE /bucket/delete_files?file_names=<comma_separated_file_names>
 ```
 
-### Notes
+## Notes
 
 * Ensure that the bucket directory is writable by the application to allow file uploads and deletions.
 * This README assumes basic familiarity with Docker and HTTP APIs.
 
-### License
+## License
 
 This project is licensed under the MIT License. See the LICENSE.md file for details.
