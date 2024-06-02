@@ -5,14 +5,10 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY /target/release/rust-bucket /usr/local/bin/rust-bucket
+RUN mkdir -p /Rust-Bucket/bucket
 
-ENV ROCKET_ADDRESS=0.0.0.0
-ENV ROCKET_PORT=8000
-
-ENV APP_ADDRESS=${APP_ADDRESS:-0.0.0.0}
-ENV APP_PORT=${APP_PORT:-8000}
+COPY /target/release/rust-bucket /Rust-Bucket/rust-bucket
 
 EXPOSE 8000
 
-CMD ROCKET_ADDRESS=$APP_ADDRESS ROCKET_PORT=$APP_PORT /usr/local/bin/rust-bucket
+CMD ROCKET_ADDRESS=0.0.0.0 ROCKET_PORT=8000 /Rust-Bucket/rust-bucket
