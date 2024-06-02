@@ -17,6 +17,9 @@ fn get_extension_from_mime_type(mime_type: &str) -> &str {
         "image/jpeg" => "jpg",
         "image/png" => "png",
         "application/pdf" => "pdf",
+        "text/csv" => "csv",
+        "application/msword" => "doc",
+        "application/zip" => "zip",
         _ => "bin",
     }
 }
