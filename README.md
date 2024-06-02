@@ -82,3 +82,12 @@ GET /bucket/get_file_names
 ```
 DELETE /bucket/delete_files?file_names=<comma_separated_file_names>
 ```
+
+### Notes
+
+* Ensure that the bucket directory is writable by the application to allow file uploads and deletions.
+* This README assumes basic familiarity with Docker and HTTP APIs.
+
+### License
+
+This project is licensed under the MIT License. See the LICENSE.md file for details.
